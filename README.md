@@ -9,7 +9,7 @@ Yet Another Launcher - a Sublime Text 3 launcher plugin
 You only need to install this package:
 
 -   [Using the Package Control plugin](https://packagecontrol.io/).
--   Manually, either download or checkout this repository and [install into your packages directory](http://docs.sublimetext.info/en/latest/extensibility/packages.html#package-installation)
+-   Manually, either download or checkout this repository and [install into your packages directory](http://docs.sublimetext.info/en/latest/extensibility/packages.html#package-installation).
 
 ## Usage
 
