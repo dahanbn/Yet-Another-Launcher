@@ -37,7 +37,7 @@ The configuration is written in [JSON](https://en.wikipedia.org/wiki/JSON) as us
 
 You need a top level JSON-object called `launchers`. Under it you have to create different launcher objects. In the example you see a launcher called `default`.
 
-```json
+```js
 {
     //
     // the "launchers" object is needed and contains all launchers
