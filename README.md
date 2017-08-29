@@ -1,6 +1,4 @@
-# Yet-Another-Launcher
-
-Yet Another Launcher - a Sublime Text 3 launcher plugin
+# Yet Another Launcher - a Sublime Text 3 launcher plugin
 
  A [Sublime Text](http://www.sublimetext.com/) plugin that is an easy launcher for local files, directories or urls.
 
