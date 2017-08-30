@@ -6,7 +6,7 @@
 
 You only need to install this package:
 
--   [Using the Package Control plugin](https://packagecontrol.io/) - you will found it. [here](https://packagecontrol.io/packages/Yet%20Another%20Launcher)
+-   [Using the Package Control plugin](https://packagecontrol.io/) - you will find it [here](https://packagecontrol.io/packages/Yet%20Another%20Launcher).
 -   Manually, either download or checkout this repository and [install into your packages directory](http://docs.sublimetext.info/en/latest/extensibility/packages.html#package-installation).
 
 ## Usage
