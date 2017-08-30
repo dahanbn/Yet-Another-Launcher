@@ -6,7 +6,7 @@
 
 You only need to install this package:
 
--   [Using the Package Control plugin](https://packagecontrol.io/). (**has to be implemented, not yet**)
+-   [Using the Package Control plugin](https://packagecontrol.io/) - you will found it. [here](https://packagecontrol.io/packages/Yet%20Another%20Launcher)
 -   Manually, either download or checkout this repository and [install into your packages directory](http://docs.sublimetext.info/en/latest/extensibility/packages.html#package-installation).
 
 ## Usage
@@ -19,11 +19,12 @@ You can also find the Yet Another Launcher submenu in the menu `Tools`. You can 
 
 The plugin is a rough first version. Over time I will try to add the following features:
 
-+ testing it on Linux and making it work there (it should already work, but it isn't tested yet)
-+ testing it on Mac and making it work there (it should already work, but it isn't tested yet)
-+ implementing launcher category `file+subl` to open files in the current Sublime Text session
-+ adding support for operating system dependend user settings
-+ adding support for launching launchers by launcher names or category
++ [X] make the package available on [PackageControl](https://packagecontrol.io/)
++ [ ] testing it on Linux and making it work there (it should already work, but it isn't tested yet)
++ [ ] testing it on Mac and making it work there (it should already work, but it isn't tested yet)
++ [ ] implementing launcher category `file+subl` to open files in the current Sublime Text session
++ [ ] adding support for operating system dependend user settings
++ [ ] adding support for launching launchers by launcher names or category
 
 ## Configuration
 
