@@ -1,4 +1,4 @@
-# Yet Another Launcher - a Sublime Text 3 launcher plugin
+# Yet Another Launcher (YAL) - a Sublime Text 3 launcher plugin
 
  A [Sublime Text](http://www.sublimetext.com/) plugin that is an easy launcher for local files, directories or urls.
 
@@ -11,9 +11,23 @@ You only need to install this package:
 
 ## Usage
 
+### Via Command Palette or Tools menu
+
 You can access Yet Another Launcher via the Command Palette (`Command+Shift+P` on OS X, `Control+Shift+P` on Linux/Windows) by selecting "Yet Another Launcher". 
 
-You can also find the Yet Another Launcher submenu in the menu `Tools`. You can also easily bind the launcher command to a key of your choice, e.g. `{"keys": ["f1"], "command": "yet_another_launcher"}`.
+You can also find the Yet Another Launcher submenu in the menu `Tools`. 
+
+### Via keybindings
+
+You can also easily bind the launcher command to a key of your choice, e.g. `{"keys": ["f1"], "command": "yet_another_launcher"}`. If you want to launch the default launcher only you can bind it with the following code: `{"keys": ["shift+f1"], "command": "yet_another_launcher","args": {"launcher": "default"}},`. 
+
+*Notice:* YAL doesn't set any keybindings per default. You have to set them yourself if you want to use it.
+
+### Via directly calling the command
+
+The plugin defines one `Sublime.WindowCommand` with the name `yet_another_launcher`. You can run it on various places in Sublime Text, e.g. in the console via `window.run_command("yet_another_launcher")` or `window.run_command("yet_another_launcher", {"selected_launcher": "default"})`.
+
+You can see the various command arguments used in [Main.sublime-menu](Main.sublime-menu). 
 
 ## Upcoming Features
 
@@ -44,7 +58,9 @@ You need a top level JSON-object called `launchers`. Under it you have to create
     "launchers": { 
         //
         // under "launchers" you can create at least one named launcher,
-        // it's okay to only define one launcher, e.g. "default"
+        // at least you have to define one launcher with the name "default"
+        // 
+        // "default" is used if you launch YAL's default launcher
         //
         "default": {
             // 
