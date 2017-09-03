@@ -24,14 +24,23 @@ import logging
 # setting logging base-level,
 # in production it will be set to logging.WARNING by commenting it out
 
-logger = logging.getLogger(__name__)
-# logger.addHandler(logging.StreamHandler(sys.stdout))
-logger.setLevel(logging.DEBUG)
-logger.debug("YAL has been loaded")
+DEFAULT_LOG_LEVEL = logging.WARNING
+DEFAULT_LOG_LEVEL_NAME = logging.getLevelName(DEFAULT_LOG_LEVEL)
+
+pl = logging.getLogger(__package__)
+handler = logging.StreamHandler()
+formatter = logging.Formatter(fmt="[{name}] {levelname}: {message}", style='{')
+handler.setFormatter(formatter)
+pl.addHandler(handler)
+pl.setLevel(DEFAULT_LOG_LEVEL)
+
+l = logging.getLogger(__name__)
+l.debug("YetAnotherLauncher.py is being loaded")
 
 
 class YetAnotherLauncherCommand(sublime_plugin.WindowCommand):
     def __init__(self, window):
+        l.debug("__init__")
         # each launcher can have the following item_categories
         # url, file+sys, file+subl
         self.item_categories = ("url", "file+sys", "file+subl")
@@ -71,7 +80,7 @@ class YetAnotherLauncherCommand(sublime_plugin.WindowCommand):
                                 "category": category,
                                 "launcher": launcher,
                                 "panel_name": [
-                                    item, 
+                                    item,
                                     data[launcher][category][item],
                                     # launcher
                                     ]}
@@ -82,7 +91,9 @@ class YetAnotherLauncherCommand(sublime_plugin.WindowCommand):
                             # list of items per category
                             self.items_by_category[category].append(item)
 
-    def run(self):
+    def run(self, **args):
+        l.debug("run with the following args")
+        l.debug(args)
         # items = sorted(list(self.items.keys()))
         # items = sorted(self.items_by_launchers["@work"])
         panel_items = []
