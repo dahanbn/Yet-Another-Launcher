@@ -38,7 +38,7 @@ The plugin is a rough first version. Over time I will try to add the following f
 + [ ] testing it on Mac and making it work there (it should already work, but it isn't tested yet)
 + [ ] implementing launcher category `file+subl` to open files in the current Sublime Text session
 + [ ] adding support for operating system dependend user settings
-+ [ ] adding support for launching launchers by launcher names or category
++ [ ] adding support for launching launchers by launcher names or category **currently working on**
 
 ## Configuration
 
