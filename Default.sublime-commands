@@ -2,5 +2,30 @@
     {
         "caption": "Yet Another Launcher",
         "command": "yet_another_launcher"
-    }
+    },
+    {
+    	"caption": "Yet Another Launcher - Default launcher",
+    	"command": "yet_another_launcher",
+    	"args": {"launcher": "default"}
+    },
+    {
+        "caption": "Yet Another Launcher - by launcher",
+        "command": "yet_another_launcher",
+        "args": {"by launcher": true}
+    },
+    {
+        "caption": "Yet Another Launcher - by category: url",
+        "command": "yet_another_launcher",
+        "args": {"category": "url"}
+    },
+    {
+        "caption": "Yet Another Launcher - by category: file+subl",
+        "command": "yet_another_launcher",
+        "args": {"category": "file+subl"}
+    },
+    {
+        "caption": "Yet Another Launcher - by category: file+sys",
+        "command": "yet_another_launcher",
+        "args": {"category": "file+sys"}
+    },
 ]
