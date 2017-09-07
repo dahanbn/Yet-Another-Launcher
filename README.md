@@ -1,5 +1,7 @@
 # Yet Another Launcher (YAL) - a Sublime Text 3 launcher plugin
 
+[![Author](https://img.shields.io/badge/twitter-%40dahanbn-blue.svg?style=flat-square)](https://twitter.com/dahanbn)
+
  A [Sublime Text](http://www.sublimetext.com/) plugin that is an easy launcher for local files, directories or urls.
 
 ## Installation
@@ -25,7 +27,7 @@ You can also easily bind the launcher command to a key of your choice, e.g. `{"k
 
 ### Via directly calling the command
 
-The plugin defines one `Sublime.WindowCommand` with the name `yet_another_launcher`. You can run it on various places in Sublime Text, e.g. in the console via `window.run_command("yet_another_launcher")` or `window.run_command("yet_another_launcher", {"selected_launcher": "default"})`.
+The plugin defines one `Sublime.WindowCommand` with the name `yet_another_launcher`. You can run it on various places in Sublime Text, e.g. in the console via `window.run_command("yet_another_launcher")` or `window.run_command("yet_another_launcher", {"launcher": "default"})`.
 
 You can see the various command arguments used in [Main.sublime-menu](Main.sublime-menu). 
 
@@ -34,7 +36,8 @@ You can see the various command arguments used in [Main.sublime-menu](Main.subli
 The plugin is a rough first version. Over time I will try to add the following features:
 
 + [X] make the package available on [PackageControl](https://packagecontrol.io/)
-+ [ ] **currently working on** adding support for launching launchers by launcher names or category
++ [X] adding support for launching launchers by launcher names or category
++ [ ] launching launchers are able to select an existing launchers
 + [ ] testing it on Linux and making it work there (it should already work, but it isn't tested yet)
 + [ ] testing it on Mac and making it work there (it should already work, but it isn't tested yet)
 + [ ] implementing launcher category `file+subl` to open files in the current Sublime Text session
