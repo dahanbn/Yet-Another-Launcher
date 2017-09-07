@@ -31,7 +31,7 @@ The plugin defines one `Sublime.WindowCommand` with the name `yet_another_launch
 
 You can see the various command arguments used in [Main.sublime-menu](Main.sublime-menu). 
 
-## Upcoming Features
+## Upcoming / Implemented Features
 
 The plugin is a rough first version. Over time I will try to add the following features:
 
