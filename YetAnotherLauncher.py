@@ -25,6 +25,7 @@ import logging
 # in production it will be set to logging.WARNING by commenting it out
 
 DEFAULT_LOG_LEVEL = logging.WARNING
+# DEFAULT_LOG_LEVEL = logging.DEBUG
 DEFAULT_LOG_LEVEL_NAME = logging.getLevelName(DEFAULT_LOG_LEVEL)
 
 pl = logging.getLogger(__package__)
@@ -53,6 +54,7 @@ class YetAnotherLauncherCommand(sublime_plugin.WindowCommand):
         #       'category': 'category of the launchable item, url, file+sys,...
         # }
         self.items = {}
+        self.panel_items = []  # will contain the formatted panel item for the quick panel
         self.items_by_launchers = {}
         self.items_by_category = {}
         for category in self.item_categories:
@@ -92,16 +94,67 @@ class YetAnotherLauncherCommand(sublime_plugin.WindowCommand):
                             self.items_by_category[category].append(item)
 
     def run(self, **args):
+        """run(self, **args) - runs the launcher dialog.
+
+           without arguments it runs the launcher with all items
+
+           **args is optional, possible args are:
+                "by_launcher": True
+                    - launcher let you select which launcher to launch
+                "category": "url" or "file+sys" or "file+subl"
+                    - launcher shows only items from that category
+                "launcher": "name of the launcher, e.g. default"
+                    - launcher shows only items from the given launcher
+        """
         l.debug("run with the following args")
         l.debug(args)
-        # items = sorted(list(self.items.keys()))
-        # items = sorted(self.items_by_launchers["@work"])
-        panel_items = []
-        for item in sorted(list(self.items.keys())):
-            panel_items.append(self.items[item]["panel_name"])
-        self.window.show_quick_panel(panel_items, self.on_done)
+        # check if args contains an "by_launcher" element and
+        # if it is true
+        if "by_launcher" in args and args["by_launcher"]:
+            l.debug("args[by_launcher] is true")
+            pass
+        # check if args contains a category element and if its
+        # value is an valid category (self.item_categories)
+        elif "category" in args:
+            # generating panel_items only with items that are defined with
+            # the category that is set in args["category"]
+            # otherwise show an error message
+            if args["category"] in self.item_categories:
+                self.generate_panel_items(sorted(self.items_by_category[args["category"]]))
+            else:
+                # first generating a string representation of the
+                # tuple (self.item_categories) for the error message
+                allowed_categories = ""
+                for category in self.item_categories:
+                    allowed_categories += '"' + category + '", '
+                # removing last comma and whitespace from string
+                allowed_categories = allowed_categories.rstrip(", ")
+                sublime.message_dialog(
+                    '"' + args["category"] + '"' +
+                    " isn't a valid category!\n\n\n" +
+                    "Please check the arguments for yet_another_lauchner.\n" +
+                    "Allowed categories are: " + allowed_categories)
+        # check if args contains an launcher element and if its
+        # value is an user defined launcher (self.launchers)
+        elif "launcher" in args:
+            # generating panel_items only with items that are defined with
+            # the launcher that is set in args["launcher"]
+            # otherwise show an error message
+            if args["launcher"] in self.launchers:
+                self.generate_panel_items((self.items_by_launchers[args["launcher"]]))
+            else:
+                sublime.message_dialog(
+                    '"' + args["launcher"] + '"' +
+                    " isn't a valid launcher!\n\n\n" +
+                    "Either check the arguments for yet_another_lauchner or" +
+                    "check your user configuration of Yet Another Launcher.")
+        else:
+            self.generate_panel_items(sorted(list(self.items.keys())))
+        # showing the quick panel with content of panel_items
+        if self.panel_items:
+            self.window.show_quick_panel(self.panel_items, self.on_done_launch)
 
-    def on_done(self, choice):
+    def on_done_launch(self, choice):
         if choice >= 0:
             items = sorted(list(self.items.keys()))
             # items = sorted(self.items_by_launchers["@work"])
@@ -112,7 +165,7 @@ class YetAnotherLauncherCommand(sublime_plugin.WindowCommand):
             if not os.path.exists(path):
                 sublime.message_dialog(
                     '"' + path + '"' +
-                    "isn't a valid path and can't be opened!")
+                    " isn't a valid path and can't be opened!")
                 return False
             # Windows
             if os.name == "nt":
@@ -123,3 +176,7 @@ class YetAnotherLauncherCommand(sublime_plugin.WindowCommand):
             # Generisches Unix (X11) - not tested yet
             else:
                 subprocess.call(['xdg-open', path])
+
+    def generate_panel_items(self, items):
+        for item in items:
+            self.panel_items.append(self.items[item]["panel_name"])
