@@ -110,6 +110,8 @@ class YetAnotherLauncherCommand(sublime_plugin.WindowCommand):
         l.debug(args)
         # check if args contains an "by_launcher" element and
         # if it is true
+        # emptying panel_items
+        self.panel_items = []
         if "by_launcher" in args and args["by_launcher"]:
             l.debug("args[by_launcher] is true")
             pass
