@@ -3,6 +3,11 @@
 [![Author](https://img.shields.io/badge/twitter-%40dahanbn-blue.svg?style=flat-square)](https://twitter.com/dahanbn)
 
  A [Sublime Text](http://www.sublimetext.com/) plugin that is an easy launcher for local files, directories or urls.
+ 
+ Next you will find the latest release note, all release notes will you find in [RELEASES.md](RELEASES.md).
+ 
+ ## v1.0.3 - bug fix
+- fixed a bug that generated wrong urls for items
 
 ## Installation
 
