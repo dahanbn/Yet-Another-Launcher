@@ -4,8 +4,11 @@
 
 A [Sublime Text](http://www.sublimetext.com/) plugin that is an easy launcher for local files, directories or urls.
  
-You will find all release notes in [RELEASES.md](RELEASES.md). For a quick overview follows the latest release note below.
+You will find all release notes in [RELEASES.md](RELEASES.md). For a quick overview follows the latest two release notes below.
  
+## v1.0.4 - added infos about releases
+- added release notes to repo and README.md
+
 ## v1.0.3 - bug fix
 - fixed a bug that generated wrong urls for items
 
@@ -36,12 +39,16 @@ The plugin defines one `Sublime.WindowCommand` with the name `yet_another_launch
 
 You can see the various command arguments used in [Main.sublime-menu](Main.sublime-menu). 
 
-## Upcoming / Implemented Features
+## Implemented Features
 
-The plugin is a rough first version. Over time I will try to add the following features:
++ [X] initial release (v1.0.0)
++ [X] make the package available on [PackageControl](https://packagecontrol.io/) (v1.0.0)
++ [X] adding support for launching launchers by launcher names or category (v1.0.1)
 
-+ [X] make the package available on [PackageControl](https://packagecontrol.io/)
-+ [X] adding support for launching launchers by launcher names or category
+## Upcoming Features
+
+Over time I will try to add the following features:
+
 + [ ] launching launchers are able to select an existing launchers
 + [ ] testing it on Linux and making it work there (it should already work, but it isn't tested yet)
 + [ ] testing it on Mac and making it work there (it should already work, but it isn't tested yet)
