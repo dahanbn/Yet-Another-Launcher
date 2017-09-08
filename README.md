@@ -1,6 +1,6 @@
 # Yet Another Launcher (YAL) - a Sublime Text 3 launcher plugin
 
-[![GitHub license](https://img.shields.io/badge/license-AGPL-blue.svg)](https://raw.githubusercontent.com/dahanbn/Yet-Another-Launcher/master/LICENSE) [![Downloads](https://img.shields.io/packagecontrol/dt/Yet%20Another%20Launcher.svg?style=flat-square)](https://packagecontrol.io/packages/Yet%20Another%20Launcher) [![Author](https://img.shields.io/badge/twitter-%40dahanbn-blue.svg?style=flat-square)](https://twitter.com/dahanbn) [![Twitter](https://img.shields.io/twitter/url/https/github.com/dahanbn/Yet-Another-Launcher.svg?style=social)](https://twitter.com/intent/tweet?text=Yet%20Another%20Launcher%for%20Sublime%20Text:&url=https://github.com/dahanbn/Yet-Another-Launcher)
+[![GitHub license](https://img.shields.io/badge/license-AGPL-blue.svg)](https://raw.githubusercontent.com/dahanbn/Yet-Another-Launcher/master/LICENSE) [![Downloads](https://img.shields.io/packagecontrol/dt/Yet%20Another%20Launcher.svg?style=flat-square)](https://packagecontrol.io/packages/Yet%20Another%20Launcher) [![Author](https://img.shields.io/badge/twitter-%40dahanbn-blue.svg?style=flat-square)](https://twitter.com/dahanbn)
 
 A [Sublime Text](http://www.sublimetext.com/) plugin that is an easy launcher for local files, directories or urls.
  
