@@ -11,7 +11,7 @@
     {
         "caption": "Yet Another Launcher - by launcher",
         "command": "yet_another_launcher",
-        "args": {"by launcher": true}
+        "args": {"by_launcher": true}
     },
     {
         "caption": "Yet Another Launcher - by category: url",
