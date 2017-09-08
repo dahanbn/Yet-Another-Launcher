@@ -158,9 +158,7 @@ class YetAnotherLauncherCommand(sublime_plugin.WindowCommand):
 
     def on_done_launch(self, choice):
         if choice >= 0:
-            items = sorted(list(self.items.keys()))
-            # items = sorted(self.items_by_launchers["@work"])
-            path = self.items[items[choice]]["url"]
+            path = self.panel_items[choice][1]  # the path is currently the second element
             if path.startswith('http://') or path.startswith('https://'):
                 webbrowser.open(path, 2, True)
                 return
