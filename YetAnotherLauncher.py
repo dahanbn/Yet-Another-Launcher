@@ -158,7 +158,9 @@ class YetAnotherLauncherCommand(sublime_plugin.WindowCommand):
 
     def on_done_launch(self, choice):
         if choice >= 0:
-            path = self.panel_items[choice][1]  # the path is currently the second element
+            # the path is currently the second element,
+            # logic must be changed if YAL supports single line panel lists
+            path = self.panel_items[choice][1]
             if path.startswith('http://') or path.startswith('https://'):
                 webbrowser.open(path, 2, True)
                 return

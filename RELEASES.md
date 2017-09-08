@@ -1,6 +1,6 @@
 # Yet Another Launcher - Release notes
 
-For more infos about Yet Another Launcher (YAL) see [README](README.md). Before reporting issues please check that PackageControl lists the latest version of YAL and that that version is also installed.
+For more infos about Yet Another Launcher (YAL) see [README](README.md). Before reporting issues Please check that [PackageControl YAL site](https://packagecontrol.io/packages/Yet%20Another%20Launcher) lists the latest version of YAL and that that version is also installed.
 
 ## v1.0.3 - bug fix
 - fixed a bug that generated wrong urls for items

@@ -1,12 +1,12 @@
 # Yet Another Launcher (YAL) - a Sublime Text 3 launcher plugin
 
-[![Author](https://img.shields.io/badge/twitter-%40dahanbn-blue.svg?style=flat-square)](https://twitter.com/dahanbn)
+[![GitHub license](https://img.shields.io/badge/license-AGPL-blue.svg)](https://raw.githubusercontent.com/dahanbn/Yet-Another-Launcher/master/LICENSE) [![Downloads](https://img.shields.io/packagecontrol/dt/Yet%20Another%20Launcher.svg?style=flat-square)](https://packagecontrol.io/packages/Yet%20Another%20Launcher) [![Author](https://img.shields.io/badge/twitter-%40dahanbn-blue.svg?style=flat-square)](https://twitter.com/dahanbn) [![Twitter](https://img.shields.io/twitter/url/https/github.com/dahanbn/Yet-Another-Launcher.svg?style=social)](https://twitter.com/intent/tweet?text=Yet%20Another%20Launcher%for%20Sublime%20Text:&url=https://github.com/dahanbn/Yet-Another-Launcher)
 
- A [Sublime Text](http://www.sublimetext.com/) plugin that is an easy launcher for local files, directories or urls.
+A [Sublime Text](http://www.sublimetext.com/) plugin that is an easy launcher for local files, directories or urls.
  
- Next you will find the latest release note, all release notes will you find in [RELEASES.md](RELEASES.md).
+You will find all release notes in [RELEASES.md](RELEASES.md). For a quick overview follows the latest release note below.
  
- ## v1.0.3 - bug fix
+## v1.0.3 - bug fix
 - fixed a bug that generated wrong urls for items
 
 ## Installation
