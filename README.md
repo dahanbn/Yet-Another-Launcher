@@ -5,13 +5,6 @@
 A [Sublime Text](http://www.sublimetext.com/) plugin that is an easy launcher for local files, directories or urls.
  
 You will find all release notes in [RELEASES.md](RELEASES.md). For a quick overview follows the latest two release notes below.
-
-## vDevelopmentBranch
-- adding support for launching YAL with the arguments:
-    - "by_launcher" - opens quickpanel and allows to select a launcher
-    - "by_category" - opens quickpanel and allows to select an item category (url, file+sys, file+subl)
-- added "by_category" to menu and command palette ("by_launceher" was already there)
-- switched to a [development branch on Github](https://github.com/dahanbn/Yet-Another-Launcher/tree/development) for developing new features
  
 ## v1.0.4 - added infos about releases
 - added release notes to repo and README.md
@@ -44,31 +37,19 @@ You can also easily bind the launcher command to a key of your choice, e.g. `{"k
 
 The plugin defines one `Sublime.WindowCommand` with the name `yet_another_launcher`. You can run it on various places in Sublime Text, e.g. in the console via `window.run_command("yet_another_launcher")` or `window.run_command("yet_another_launcher", {"launcher": "default"})`.
 
-You can see the various command arguments used in [Main.sublime-menu](Main.sublime-menu) or [Default.sublime-commands](Default.sublime-commands).
-
-Without arguments the command runs the launcher with all items. The arguments itself are optional. Possible arguments are:
-
-- "by_launcher": True
-    - launcher let you select which launcher to launch
-- "by_category": True
-    - launcher let you select which category to launch
-- "category": "url" or "file+sys" or "file+subl"
-    - launcher shows only items from that category
-- "launcher": "name of the launcher, e.g. default"
-    - launcher shows only items from the given launcher
+You can see the various command arguments used in [Main.sublime-menu](Main.sublime-menu). 
 
 ## Implemented Features
 
 + [X] initial release (v1.0.0)
 + [X] make the package available on [PackageControl](https://packagecontrol.io/) (v1.0.0)
 + [X] adding support for launching launchers by launcher names or category (v1.0.1)
-+ [X] ability to show all launchers in the quick panel and let the user select one (vDevelopmentBranch)
-+ [X] ability to show all item categories in the quick panel and let the user select one (vDevelopmentBranch)
 
 ## Upcoming Features
 
 Over time I will try to add the following features:
 
++ [ ] launching launchers are able to select an existing launchers
 + [ ] testing it on Linux and making it work there (it should already work, but it isn't tested yet)
 + [ ] testing it on Mac and making it work there (it should already work, but it isn't tested yet)
 + [ ] implementing launcher category `file+subl` to open files in the current Sublime Text session
@@ -114,4 +95,4 @@ You need a top level JSON-object called `launchers`. Under it you have to create
 ```
 
 ## License
-The plugin is licensed under the GNU GENERAL PUBLIC LICENSE, Version 3, 29 June 2007. In detail you can read the licensing terms in the file `[LICENSE](LICENSE)`.
+The plugin is licensed under the GNU GENERAL PUBLIC LICENSE, Version 3, 29 June 2007. In detail you can read the licensing terms in the file `LICENSE`.
