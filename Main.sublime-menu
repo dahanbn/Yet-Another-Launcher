@@ -25,11 +25,6 @@
                         "command": "yet_another_launcher",
                         "args": {"by_launcher": true}
                     },
-                    {
-                        "caption": "Yet Another Launcher - by category",
-                        "command": "yet_another_launcher",
-                        "args": {"by_category": true}
-                    },
                     { "caption": "-" },                    
                     {
                         "caption": "Yet Another Launcher - by category: url",
