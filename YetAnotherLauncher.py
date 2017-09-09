@@ -101,6 +101,8 @@ class YetAnotherLauncherCommand(sublime_plugin.WindowCommand):
            **args is optional, possible args are:
                 "by_launcher": True
                     - launcher let you select which launcher to launch
+                "by_category": True
+                    - launcher let you select which category to launch
                 "category": "url" or "file+sys" or "file+subl"
                     - launcher shows only items from that category
                 "launcher": "name of the launcher, e.g. default"
@@ -108,13 +110,34 @@ class YetAnotherLauncherCommand(sublime_plugin.WindowCommand):
         """
         l.debug("run with the following args")
         l.debug(args)
-        # check if args contains an "by_launcher" element and
-        # if it is true
-        # emptying panel_items
+        # emptying panel_items, it will contain the launchable_items
         self.panel_items = []
-        if "by_launcher" in args and args["by_launcher"]:
-            l.debug("args[by_launcher] is true")
-            pass
+        # first check two special cases that needs another logic
+        # by_launcher & by_category
+        # both need two launchers,
+        #      first to select launcher or category
+        #      second to launch that
+        # self.panel_items_info will contain "by_category" or "by_launcher"
+        # to check later, what is exactly in self.panel_items
+        if ("by_launcher" in args and args["by_launcher"]) or ("by_category" in args and args["by_category"]):
+            # check if args contains an "by_launcher" element and
+            # if it is true
+            if "by_launcher" in args and args["by_launcher"]:
+                l.debug("args[by_launcher] is true")
+                self.panel_items = sorted(self.launchers)
+                self.panel_items_info = "by_launcher"
+            # check if args contains an "by_category" element and
+            # if it is true
+            elif "by_category" in args and args["by_category"]:
+                l.debug("args[by_category] is true")
+                self.panel_items = sorted(self.item_categories)
+                self.panel_items_info = "by_category"
+            # showing the the first quick panel either by launchers or 
+            # categories, this time with a special on_done_first method,
+            # it's the only case that panel_items doesn't contain launchable 
+            # items, now it contains all launchers or categories
+            if self.panel_items:
+                self.window.show_quick_panel(self.panel_items, self.on_done_first)
         # check if args contains a category element and if its
         # value is an valid category (self.item_categories)
         elif "category" in args:
@@ -157,6 +180,7 @@ class YetAnotherLauncherCommand(sublime_plugin.WindowCommand):
             self.window.show_quick_panel(self.panel_items, self.on_done_launch)
 
     def on_done_launch(self, choice):
+        """on_done_launch(self, choice) - launches the choice"""
         if choice >= 0:
             # the path is currently the second element,
             # logic must be changed if YAL supports single line panel lists
@@ -178,6 +202,19 @@ class YetAnotherLauncherCommand(sublime_plugin.WindowCommand):
             # Generisches Unix (X11) - not tested yet
             else:
                 subprocess.call(['xdg-open', path])
+
+    def on_done_first(self, choice):
+        """on_done_first(self, choice) - launches the corresponding second launcher"""
+        if choice >= 0:
+            # panel_items either contains all launcher or item_categories names
+            # test, what it is
+            if self.panel_items_info == "by_category":
+                # emptying self.panel_items_info
+                self.panel_items_info = ""
+                print(self.panel_items[choice])
+                args = {}
+                args["category"] = self.panel_items[choice]
+                window.run_command("yet_another_launcher", {"category": "file+sys"})
 
     def generate_panel_items(self, items):
         for item in items:
