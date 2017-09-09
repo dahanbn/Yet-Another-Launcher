@@ -95,4 +95,4 @@ You need a top level JSON-object called `launchers`. Under it you have to create
 ```
 
 ## License
-The plugin is licensed under the GNU GENERAL PUBLIC LICENSE, Version 3, 29 June 2007. In detail you can read the licensing terms in the file `LICENSE`.
+The plugin is licensed under the GNU GENERAL PUBLIC LICENSE, Version 3, 29 June 2007. In detail you can read the licensing terms in the file `[LICENSE](LICENSE)`.
