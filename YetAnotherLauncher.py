@@ -24,9 +24,12 @@ import logging
 # setting logging base-level,
 # in production it will be set to logging.WARNING by commenting it out
 
+# TODO: find more out about logging
 DEFAULT_LOG_LEVEL = logging.WARNING
 # DEFAULT_LOG_LEVEL = logging.DEBUG
 DEFAULT_LOG_LEVEL_NAME = logging.getLevelName(DEFAULT_LOG_LEVEL)
+EVENT_LEVEL = logging.INFO
+# EVENT_LEVEL = logging.INFO
 
 pl = logging.getLogger(__package__)
 handler = logging.StreamHandler()
@@ -215,6 +218,9 @@ class YetAnotherLauncherCommand(sublime_plugin.WindowCommand):
                 args = {}
                 args["category"] = self.panel_items[choice]
                 window.run_command("yet_another_launcher", {"category": "file+sys"})
+            elif self.panel_items_info == "by_launcher":
+                # emptying self.panel_items_info
+                self.panel_items_info = ""                
 
     def generate_panel_items(self, items):
         for item in items:

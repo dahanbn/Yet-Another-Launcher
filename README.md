@@ -16,9 +16,6 @@ You will find all release notes in [RELEASES.md](RELEASES.md). For a quick overv
 ## v1.0.4 - added infos about releases
 - added release notes to repo and README.md
 
-## v1.0.3 - bug fix
-- fixed a bug that generated wrong urls for items
-
 ## Installation
 
 You only need to install this package:
@@ -114,4 +111,4 @@ You need a top level JSON-object called `launchers`. Under it you have to create
 ```
 
 ## License
-The plugin is licensed under the GNU GENERAL PUBLIC LICENSE, Version 3, 29 June 2007. In detail you can read the licensing terms in the file `[LICENSE](LICENSE)`.
+The plugin is licensed under the GNU GENERAL PUBLIC LICENSE, Version 3, 29 June 2007. In detail you can read the licensing terms in the file [LICENSE](LICENSE).
