@@ -2,6 +2,9 @@
 
 For more infos about Yet Another Launcher (YAL) see [README](README.md). Before reporting issues Please check that [PackageControl YAL site](https://packagecontrol.io/packages/Yet%20Another%20Launcher) lists the latest version of YAL and that that version is also installed.
 
+## vDevelopmentv
+-
+
 ## v1.0.5
 - adding support for launching YAL with the arguments:
     - "by_launcher" - opens quickpanel and allows to select a launcher
