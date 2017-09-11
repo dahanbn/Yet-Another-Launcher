@@ -205,26 +205,49 @@ class YetAnotherLauncherCommand(sublime_plugin.WindowCommand):
             elif self.panel_items_info == "by_launcher":
                 sublime.active_window().run_command("yet_another_launcher", {"launcher": self.panel_items[choice]})
             elif self.panel_items_info == "launchable_item":
-                # the path is currently the second element for launchable_items,
-                # logic must be changed if YAL supports single line panel lists
-                path = self.panel_items[choice][1]
-                if path.startswith('http://') or path.startswith('https://'):
-                    webbrowser.open(path, 2, True)
-                    return
-                if not os.path.exists(path):
-                    sublime.message_dialog(
-                        '"' + path + '"' +
-                        " isn't a valid path and can't be opened!")
-                    return False
-                # Windows
-                if os.name == "nt":
-                    os.startfile(path)
-                # Macintosh - not tested yet
-                elif sys.platform == "darwin":
-                    subprocess.call(['open', path])
-                # Generisches Unix (X11) - not tested yet
-                else:
-                    subprocess.call(['xdg-open', path])
+                path = self.items[self.panel_items[choice][0]]['url']
+                category = self.items[self.panel_items[choice][0]]['category']
+                if category == "url":
+                    if path.startswith('http://') or \
+                            path.startswith('https://') or \
+                            path.startswith('ftp://') or \
+                            path.startswith('ftps://'):
+                        webbrowser.open(path, 2, True)
+                        return
+                elif category == "file+sys" or category == "file+subl":
+                    # preprocessing path if it isn't absolute
+                    if not os.path.isabs(path):
+                        # expanding unix style user names,
+                        # works on Windows as well
+                        if path.startswith("~"):
+                            path = os.path.expanduser(path)
+                        # expanding Windows Environment variables,
+                        # currently only the following  
+                        elif os.name == "nt" and \
+                                (path.startswith("%USERPROFILE%") or
+                                    path.startswith("%APPDATA%") or
+                                    path.startswith("%LOCALAPPDATA%") or
+                                    path.startswith("%PUBLIC%") or
+                                    path.startswith("%WINDIR%") or
+                                    path.startswith("%SYSTEMROOT%") or
+                                    path.startswith("%TEMP%") or
+                                    path.startswith("%TMP%") or
+                                    "%USERNAME%" in path):
+                            path = os.path.expandvars(path)
+                    if not os.path.exists(path):
+                        sublime.message_dialog(
+                            '"' + path + '"' +
+                            " isn't a valid path and can't be opened!")
+                        return False
+                    # Windows
+                    if os.name == "nt":
+                        os.startfile(path)
+                    # Macintosh - not tested yet
+                    elif sys.platform == "darwin":
+                        subprocess.call(['open', path])
+                    # Generisches Unix (X11) - not tested yet
+                    else:
+                        subprocess.call(['xdg-open', path])
 
     def generate_panel_items(self, items):
         for item in items:
