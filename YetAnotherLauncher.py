@@ -24,9 +24,12 @@ import logging
 # setting logging base-level,
 # in production it will be set to logging.WARNING by commenting it out
 
+# TODO: find more out about logging
 DEFAULT_LOG_LEVEL = logging.WARNING
 # DEFAULT_LOG_LEVEL = logging.DEBUG
 DEFAULT_LOG_LEVEL_NAME = logging.getLevelName(DEFAULT_LOG_LEVEL)
+EVENT_LEVEL = logging.INFO
+# EVENT_LEVEL = logging.INFO
 
 pl = logging.getLogger(__package__)
 handler = logging.StreamHandler()
@@ -55,6 +58,7 @@ class YetAnotherLauncherCommand(sublime_plugin.WindowCommand):
         # }
         self.items = {}
         self.panel_items = []  # will contain the formatted panel item for the quick panel
+        self.panel_items_info = ""  # will contain either "by_launcher", "by_category" or "launchable_item"
         self.items_by_launchers = {}
         self.items_by_category = {}
         for category in self.item_categories:
@@ -112,9 +116,28 @@ class YetAnotherLauncherCommand(sublime_plugin.WindowCommand):
         # if it is true
         # emptying panel_items
         self.panel_items = []
-        if "by_launcher" in args and args["by_launcher"]:
-            l.debug("args[by_launcher] is true")
-            pass
+        # emptying panel_items_info, it will contain the type of panel_items_info
+        self.panel_items_info = ""
+        # first check two special cases that needs another logic
+        # by_launcher & by_category
+        # both need two launchers,
+        #      first to select launcher or category
+        #      second to launch that
+        # self.panel_items_info will contain "by_category" or "by_launcher"
+        # to check later, what is exactly in self.panel_items
+        if ("by_launcher" in args and args["by_launcher"]) or ("by_category" in args and args["by_category"]):
+            # check if args contains an "by_launcher" element and
+            # if it is true
+            if "by_launcher" in args and args["by_launcher"]:
+                l.debug("args[by_launcher] is true")
+                self.panel_items = sorted(self.launchers)
+                self.panel_items_info = "by_launcher"
+            # check if args contains an "by_category" element and
+            # if it is true
+            elif "by_category" in args and args["by_category"]:
+                l.debug("args[by_category] is true")
+                self.panel_items = sorted(self.item_categories)
+                self.panel_items_info = "by_category"
         # check if args contains a category element and if its
         # value is an valid category (self.item_categories)
         elif "category" in args:
@@ -123,6 +146,7 @@ class YetAnotherLauncherCommand(sublime_plugin.WindowCommand):
             # otherwise show an error message
             if args["category"] in self.item_categories:
                 self.generate_panel_items(sorted(self.items_by_category[args["category"]]))
+                self.panel_items_info = "launchable_item"
             else:
                 # first generating a string representation of the
                 # tuple (self.item_categories) for the error message
@@ -144,6 +168,7 @@ class YetAnotherLauncherCommand(sublime_plugin.WindowCommand):
             # otherwise show an error message
             if args["launcher"] in self.launchers:
                 self.generate_panel_items((self.items_by_launchers[args["launcher"]]))
+                self.panel_items_info = "launchable_item"
             else:
                 sublime.message_dialog(
                     '"' + args["launcher"] + '"' +
@@ -152,32 +177,77 @@ class YetAnotherLauncherCommand(sublime_plugin.WindowCommand):
                     "check your user configuration of Yet Another Launcher.")
         else:
             self.generate_panel_items(sorted(list(self.items.keys())))
+            self.panel_items_info = "launchable_item"
         # showing the quick panel with content of panel_items
         if self.panel_items:
             self.window.show_quick_panel(self.panel_items, self.on_done_launch)
 
     def on_done_launch(self, choice):
+        """on_done_launch(self, choice) - launches the choice
+
+            choice can either be launchable_items or
+                                 another quickpanel (by_category/by_launcher
+
+            what choice means depends on the value of self.panel_items_info
+
+                self.panel_items_info = 'by_category'
+                self.panel_items_info = 'by_launcher'
+
+                        will launch a second quickpanel by selected category/launcher
+
+                self.panel_items_info = 'launchable_item'
+
+                        will launch the launchable_item"""
         if choice >= 0:
-            # the path is currently the second element,
-            # logic must be changed if YAL supports single line panel lists
-            path = self.panel_items[choice][1]
-            if path.startswith('http://') or path.startswith('https://'):
-                webbrowser.open(path, 2, True)
-                return
-            if not os.path.exists(path):
-                sublime.message_dialog(
-                    '"' + path + '"' +
-                    " isn't a valid path and can't be opened!")
-                return False
-            # Windows
-            if os.name == "nt":
-                os.startfile(path)
-            # Macintosh - not tested yet
-            elif sys.platform == "darwin":
-                subprocess.call(['open', path])
-            # Generisches Unix (X11) - not tested yet
-            else:
-                subprocess.call(['xdg-open', path])
+            # test, what panel_items contains
+            if self.panel_items_info == "by_category":
+                sublime.active_window().run_command("yet_another_launcher", {"category": self.panel_items[choice]})
+            elif self.panel_items_info == "by_launcher":
+                sublime.active_window().run_command("yet_another_launcher", {"launcher": self.panel_items[choice]})
+            elif self.panel_items_info == "launchable_item":
+                path = self.items[self.panel_items[choice][0]]['url']
+                category = self.items[self.panel_items[choice][0]]['category']
+                if category == "url":
+                    if path.startswith('http://') or \
+                            path.startswith('https://') or \
+                            path.startswith('ftp://') or \
+                            path.startswith('ftps://'):
+                        webbrowser.open(path, 2, True)
+                        return
+                elif category == "file+sys" or category == "file+subl":
+                    # preprocessing path if it isn't absolute
+                    if not os.path.isabs(path):
+                        # expanding unix style user names,
+                        # works on Windows as well
+                        if path.startswith("~"):
+                            path = os.path.expanduser(path)
+                        # expanding Windows Environment variables,
+                        # currently only the following  
+                        elif os.name == "nt" and \
+                                (path.startswith("%USERPROFILE%") or
+                                    path.startswith("%APPDATA%") or
+                                    path.startswith("%LOCALAPPDATA%") or
+                                    path.startswith("%PUBLIC%") or
+                                    path.startswith("%WINDIR%") or
+                                    path.startswith("%SYSTEMROOT%") or
+                                    path.startswith("%TEMP%") or
+                                    path.startswith("%TMP%") or
+                                    "%USERNAME%" in path):
+                            path = os.path.expandvars(path)
+                    if not os.path.exists(path):
+                        sublime.message_dialog(
+                            '"' + path + '"' +
+                            " isn't a valid path and can't be opened!")
+                        return False
+                    # Windows
+                    if os.name == "nt":
+                        os.startfile(path)
+                    # Macintosh - not tested yet
+                    elif sys.platform == "darwin":
+                        subprocess.call(['open', path])
+                    # Generisches Unix (X11) - not tested yet
+                    else:
+                        subprocess.call(['xdg-open', path])
 
     def generate_panel_items(self, items):
         for item in items:

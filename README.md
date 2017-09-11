@@ -5,12 +5,17 @@
 A [Sublime Text](http://www.sublimetext.com/) plugin that is an easy launcher for local files, directories or urls.
  
 You will find all release notes in [RELEASES.md](RELEASES.md). For a quick overview follows the latest two release notes below.
+
+## v1.0.5
+- adding support for launching YAL with the arguments:
+    - "by_launcher" - opens quickpanel and allows to select a launcher
+    - "by_category" - opens quickpanel and allows to select an item category (url, file+sys, file+subl)
+- added "by_category" to menu and command palette ("by_launcher" was already there)
+- added support for expanding elements in path names (~, ~user, %USERPROFILE%, %APPDATA%, %LOCALAPPDATA%, %PUBLIC%, %WINDIR%, %SYSTEMROOT%, %TEMP%, %TMP%, %USERNAME% - ~/~user works on Windows as well)
+- switched to a [development branch on Github](https://github.com/dahanbn/Yet-Another-Launcher/tree/development) for developing new features
  
 ## v1.0.4 - added infos about releases
 - added release notes to repo and README.md
-
-## v1.0.3 - bug fix
-- fixed a bug that generated wrong urls for items
 
 ## Installation
 
@@ -44,12 +49,15 @@ You can see the various command arguments used in [Main.sublime-menu](Main.subli
 + [X] initial release (v1.0.0)
 + [X] make the package available on [PackageControl](https://packagecontrol.io/) (v1.0.0)
 + [X] adding support for launching launchers by launcher names or category (v1.0.1)
++ [X] ability to show all launchers in the quick panel and let the user select one (v1.0.5)
++ [X] ability to show all item categories in the quick panel and let the user select one (v1.0.5)
++ [X] ability for expanding elements in path names (~, ~user, %USERPROFILE%, %APPDATA%, %LOCALAPPDATA%, %PUBLIC%, %WINDIR%, %SYSTEMROOT%, %TEMP%, %TMP%, %USERNAME% - ~/~user works on Windows as well)
 
 ## Upcoming Features
 
 Over time I will try to add the following features:
 
-+ [ ] launching launchers are able to select an existing launchers
++ [ ] adding support for install / update messages for installs via PackageControl
 + [ ] testing it on Linux and making it work there (it should already work, but it isn't tested yet)
 + [ ] testing it on Mac and making it work there (it should already work, but it isn't tested yet)
 + [ ] implementing launcher category `file+subl` to open files in the current Sublime Text session
@@ -64,6 +72,8 @@ You configure your launcher and launchable items via the [plugin settings file](
 The configuration is written in [JSON](https://en.wikipedia.org/wiki/JSON) as usual for Sublime Text settings.
 
 You need a top level JSON-object called `launchers`. Under it you have to create different launcher objects. In the example you see a launcher called `default`.
+
+YAL supports expanding of ~ / ~user on all operating systems, and the expansion of the following Windows environment variables on Windows: %USERPROFILE%, %APPDATA%, %LOCALAPPDATA%, %PUBLIC%, %WINDIR%, %SYSTEMROOT%, %TEMP%, %TMP%, %USERNAME%
 
 ```js
 {
@@ -95,4 +105,4 @@ You need a top level JSON-object called `launchers`. Under it you have to create
 ```
 
 ## License
-The plugin is licensed under the GNU GENERAL PUBLIC LICENSE, Version 3, 29 June 2007. In detail you can read the licensing terms in the file `LICENSE`.
+The plugin is licensed under the GNU GENERAL PUBLIC LICENSE, Version 3, 29 June 2007. In detail you can read the licensing terms in the file [LICENSE](LICENSE).
