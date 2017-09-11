@@ -222,7 +222,7 @@ class YetAnotherLauncherCommand(sublime_plugin.WindowCommand):
                         if path.startswith("~"):
                             path = os.path.expanduser(path)
                         # expanding Windows Environment variables,
-                        # currently only the following  
+                        # currently only the following
                         elif os.name == "nt" and \
                                 (path.startswith("%USERPROFILE%") or
                                     path.startswith("%APPDATA%") or
